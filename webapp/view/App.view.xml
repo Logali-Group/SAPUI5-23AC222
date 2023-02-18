@@ -20,13 +20,11 @@
                                     width="200px"/>
                             <Label id="labelCountry"
                                     class="sapUiSmallMargin" 
-                                    text="{i18n>labelCountry}"
-                                    visible="false"/>
+                                    text="{i18n>labelCountry}"/>
                             <Select id="selectCountry"
                                     items="{/ListCountry}"
                                     selectedKey="{/CountryKey}"
-                                    forceSelection="false"
-                                    visible="false">
+                                    forceSelection="false">
                                 <items>
                                     <core:Item key="{Key}" 
                                                 text="{Text}"/>

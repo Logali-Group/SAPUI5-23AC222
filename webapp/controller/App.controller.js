@@ -28,12 +28,12 @@ sap.ui.define([
                 console.log(oInput);
                 if (sValue.length === oInput.getMaxLength()) {
                     //oInput.setDescription("Ok");
-                    this.getView().byId("labelCountry").setVisible(true);
-                    this.getView().byId("selectCountry").setVisible(true);
+                    // this.getView().byId("labelCountry").setVisible(true);
+                    // this.getView().byId("selectCountry").setVisible(true);
                 } else {
                     //oInput.setDescription("Not Ok");
-                    this.getView().byId("labelCountry").setVisible(false);
-                    this.getView().byId("selectCountry").setVisible(false);
+                    // this.getView().byId("labelCountry").setVisible(false);
+                    // this.getView().byId("selectCountry").setVisible(false);
                 }
             },
 
@@ -68,11 +68,12 @@ sap.ui.define([
                 let oModel = this.getView().getModel();
                     oModel.setProperty("/EmployeeId");
                     oModel.setProperty("/CountryKey");
-                    oModel.setProperty("/Amount");
 
                 let oTable = this.byId("tableEmployee"),
                     oBinding = oTable.getBinding("items");
                     oBinding.filter([]);
+
+                this.getView().byId("tableEmployee").setHeaderText("Employees: ("+oModel.getProperty("/Amount")+")");
 
             },
 
