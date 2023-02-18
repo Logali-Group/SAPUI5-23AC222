@@ -1,15 +1,38 @@
-<mvc:View controllerName="employees.controller.App"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    
+<mvc:View controllerName="employees.controller.App" 
+            xmlns="sap.m"
+            xmlns:core="sap.ui.core"
+            xmlns:mvc="sap.ui.core.mvc" 
+            displayBlock="true" >
+
     <Shell>
         <App>
             <pages>
-                <Page showHeader="false">
-                    <Text text="Hello"/>
+                <Page id="page" title="{i18n>title}">
+                    <content>
+                        <HBox>
+                            <Label id="labelEmployee" 
+                                    class="sapUiSmallMargin" 
+                                    text="{i18n>labelEmployee}" />
+                            <Input id="inputEmployee" 
+                                    class="sapUiSmallMarginEnd" 
+                                    maxLength="6" 
+                                    liveChange="onValidate"
+                                    width="200px"/>
+                            <Label id="labelCountry"
+                                    text="{i18n>labelCountry}"
+                                    visible="false"/>
+                            <Select id="selectCountry"
+                                    visible="false">
+                                <items>
+                                    <core:Item key="US" text="{i18n>countryUS}"/>
+                                    <core:Item key="UK" text="{i18n>countryUK}"/>
+                                    <core:Item key="ES" text="{i18n>countryES}"/>
+                                </items>
+                            </Select>
+                        </HBox>
+                    </content>
                 </Page>
             </pages>
         </App>
     </Shell>
-
 </mvc:View>
