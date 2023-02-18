@@ -73,6 +73,10 @@
         "dataSource": "mainService",
         "preload": true,
         "settings": {}
+      },
+      "employees":{
+        "type":"sap.ui.model.json.JSONModel",
+        "uri":"localService/mockdata/Employees.json"
       }
     },
     "resources": {

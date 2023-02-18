@@ -16,19 +16,65 @@
                             <Input id="inputEmployee" 
                                     class="sapUiSmallMarginEnd" 
                                     maxLength="6" 
-                                    liveChange="onValidate"
+                                    value="{/EmployeeId}"
                                     width="200px"/>
                             <Label id="labelCountry"
+                                    class="sapUiSmallMargin" 
                                     text="{i18n>labelCountry}"
                                     visible="false"/>
                             <Select id="selectCountry"
+                                    items="{/ListCountry}"
+                                    selectedKey="{/CountryKey}"
+                                    forceSelection="false"
                                     visible="false">
                                 <items>
-                                    <core:Item key="US" text="{i18n>countryUS}"/>
-                                    <core:Item key="UK" text="{i18n>countryUK}"/>
-                                    <core:Item key="ES" text="{i18n>countryES}"/>
+                                    <core:Item key="{Key}" 
+                                                text="{Text}"/>
                                 </items>
                             </Select>
+                            <Button id="btnFilter"
+                                    class="sapUiSmallMarginEnd"
+                                    icon="sap-icon://search"
+                                    press="onFilter"/>
+                            <Button id="btnClearFilter"
+                                    class="sapUiSmallMarginEnd"
+                                    icon="sap-icon://clear-filter"
+                                    press="onClearFilter"/>
+                        </HBox>
+                        <HBox>
+                            <Panel>
+                                <content>
+                                    <Table id="tableEmployee"
+                                            items="{/Employees}"
+                                            headerText="Employees: ({/Amount})">
+                                        <columns>
+                                            <Column>
+                                                <Text text="{i18n>tableId}"/>
+                                            </Column>
+                                            <Column>
+                                                <Text text="{i18n>tableName}"/>
+                                            </Column>
+                                            <Column>
+                                                <Text text="{i18n>tableCountry}"/>
+                                            </Column>
+                                            <Column>
+                                                <Text text="{i18n>tableCity}"/>
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem press="onMessage"
+                                                            type="Active">
+                                                <cells>
+                                                    <ObjectIdentifier title="{EmployeeID}"/>
+                                                    <Text text="{FirstName} {LastName}"/>
+                                                    <Text text="{Country}"/>
+                                                    <Text text="{City}"/>
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </content>
+                            </Panel>
                         </HBox>
                     </content>
                 </Page>
