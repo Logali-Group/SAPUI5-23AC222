@@ -203,6 +203,23 @@ sap.ui.define([
                 //Agregamos la nueva tabla en el HBox
                 oOrdersTable.addItem(oNewTable);
                     
+            },
+
+            onOpenDialog: function (oEvent) {
+                let oItem = oEvent.getSource(),
+                    oBindingContext = oItem.getBindingContext("jsonEmployees");
+
+                    if (!this.pDialogOrders) {
+                        this.pDialogOrders = sap.ui.xmlfragment("employees.fragment.DialogOrders", this);
+                        this.getView().addDependent(this.pDialogOrders);
+                    }
+
+                    this.pDialogOrders.bindElement("jsonEmployees>"+oBindingContext.getPath());
+                    this.pDialogOrders.open();
+            },
+
+            onCloseOrders: function () {
+                this.pDialogOrders.close();
             }
         });
     });
