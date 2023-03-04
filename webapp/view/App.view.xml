@@ -55,20 +55,28 @@
                                             headerText="Employees: ({jsonEmployees>/Amount})">
                                         <columns>
                                             <Column visible="{jsonConfig>/visibleID}">
-                                                <Text text="{i18n>tableId}"/>
+                                                <header>
+                                                    <Text text="{i18n>tableId}"/>
+                                                </header>
                                             </Column>
                                             <Column visible="{jsonConfig>/visibleName}">
                                                 <Text text="{i18n>tableName}"/>
                                             </Column >
                                             <Column visible="{jsonConfig>/visibleCountry}">
                                                 <Text text="{i18n>tableCountry}"/>
+                                                <!-- <footer>
+                                                    <Text text="Hello"/>
+                                                </footer> -->
                                             </Column>
                                             <Column visible="{jsonConfig>/visibleCity}">
                                                 <Text text="{i18n>tableCity}"/>
+                                                <!-- <footer>
+                                                    <Text text="Hello"/>
+                                                </footer> -->
                                             </Column>
                                         </columns>
                                         <items>
-                                            <ColumnListItem press="onMessage"
+                                            <ColumnListItem press="onShowOrders"
                                                             type="Active">
                                                 <cells>
                                                     <ObjectIdentifier title="{jsonEmployees>EmployeeID}"/>
@@ -79,6 +87,7 @@
                                             </ColumnListItem>
                                         </items>
                                     </Table>
+                                    <HBox id="ordersTable"/>
                                 </content>
                             </Panel>
                         </HBox>
