@@ -23,7 +23,7 @@
                                     text="{i18n>labelCountry}"/>
                             <Select id="selectCountry"
                                     items="{jsonCountries>/ListCountry}"
-                                    selectedKey="{/CountryKey}"
+                                    selectedKey="{jsonCountries>/CountryKey}"
                                     forceSelection="false">
                                 <items>
                                     <core:Item key="{jsonCountries>Key}" 

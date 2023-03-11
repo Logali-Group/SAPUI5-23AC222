@@ -74,7 +74,8 @@ sap.ui.define([
 
             onClearFilter: function () {
 
-                let oModel = this.getView().getModel("jsonCountries");
+                let oModel = this.getView().getModel("jsonCountries"),
+                    oEmployeeModel = this.getView().getModel("jsonEmployees");
                     oModel.setProperty("/EmployeeId");
                     oModel.setProperty("/CountryKey");
 
@@ -82,7 +83,7 @@ sap.ui.define([
                     oBinding = oTable.getBinding("items");
                     oBinding.filter([]);
 
-                this.getView().byId("tableEmployee").setHeaderText("Employees: ("+oModel.getProperty("/Amount")+")");
+                this.getView().byId("tableEmployee").setHeaderText("Employees: ("+oEmployeeModel.getProperty("/Amount")+")");
 
             },
 

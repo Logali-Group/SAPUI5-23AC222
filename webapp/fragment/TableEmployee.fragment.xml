@@ -13,8 +13,11 @@
                         visible="{jsonConfig>/visibleBtnHideCity}"
                         press="onHideCity"/>
                 <Table id="tableEmployee"
+                        headerText="Employees({jsonEmployees>/Amount})"
                         items="{jsonEmployees>/Employees}"
-                        headerText="Employees: ({jsonEmployees>/Amount})">
+                        growing="true"
+                        growingThreshold="50"
+                        growingScrollToLoad="true">
                     <columns>
                         <Column visible="{jsonConfig>/visibleID}">
                             <header>
