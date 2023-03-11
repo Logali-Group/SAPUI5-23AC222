@@ -1,0 +1,74 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core">
+
+        <Panel>
+            <content>
+                <Button id="btnShowCity"
+                        text="{i18n>showCity}"
+                        visible="{jsonConfig>/visibleBtnShowCity}"
+                        press="onShowCity"/>
+                <Button id="btnHIdeCity"
+                        text="{i18n>hideCity}"
+                        visible="{jsonConfig>/visibleBtnHideCity}"
+                        press="onHideCity"/>
+                <Table id="tableEmployee"
+                        headerText="Employees({jsonEmployees>/Amount})"
+                        items="{jsonEmployees>/Employees}"
+                        growing="true"
+                        growingThreshold="50"
+                        growingScrollToLoad="true">
+                    <columns>
+                        <Column minScreenWidth="Small"
+                                demandPopin="true"
+                                visible="{jsonConfig>/visibleID}">
+                            <header>
+                                <Text text="{i18n>tableId}"/>
+                            </header>
+                        </Column>
+                        <Column minScreenWidth="Small"
+                                demandPopin="true"
+                                visible="{jsonConfig>/visibleName}">
+                            <Text text="{i18n>tableName}"/>
+                        </Column >
+                        <Column 
+                                minScreenWidth="Small"
+                                demandPopin="true"
+                                visible="{jsonConfig>/visibleCountry}">
+                            <Text text="{i18n>tableCountry}"/>
+                            <!-- <footer>
+                                <Text text="Hello"/>
+                            </footer> -->
+                        </Column>
+                        <Column minScreenWidth="Small"
+                                demandPopin="true"
+                                visible="{jsonConfig>/visibleCity}">
+                            <Text text="{i18n>tableCity}"/>
+                            <!-- <footer>
+                                <Text text="Hello"/>
+                            </footer> -->
+                        </Column>
+                        <Column minScreenWidth="Small"
+                                demandPopin="false">
+                            <Label text="{i18n>tableShowDetils}"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem press="onNavToDetails"
+                                        type="Navigation">
+                            <cells>
+                                <ObjectIdentifier title="{jsonEmployees>EmployeeID}"/>
+                                <Text text="{jsonEmployees>FirstName} {jsonEmployees>LastName}"/>
+                                <Text text="{jsonEmployees>Country}"/>
+                                <Text text="{jsonEmployees>City}"/>
+                                <core:Icon src="sap-icon://show" 
+                                        press="onOpenDialog"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                <HBox id="ordersTable"/>
+            </content>
+        </Panel>
+
+</core:FragmentDefinition>
