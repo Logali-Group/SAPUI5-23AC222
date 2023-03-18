@@ -13,11 +13,11 @@ sap.ui.define([
                 oNewIncidence = sap.ui.xmlfragment("employees.fragment.NewIncidence", this),
                 oIncidenceModel = this.getView().getModel("incidenceModel"),
                 oData = oIncidenceModel.getData(),
-                iIndex = oData.lenght;
+                iIndex = oData.length;
 
                 oData.push({index: iIndex + 1});
                 oIncidenceModel.refresh();
-                oNewIncidence.bindElement("incidenceModel>"+iIndex);
+                oNewIncidence.bindElement("incidenceModel>/"+iIndex);
 
                 oTable.addContent(oNewIncidence);
         }

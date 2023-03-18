@@ -215,5 +215,6 @@ sap.ui.define([
 
                 this._oEventBus.publish("Layout","onNavToDetails", sPath);
             }
+            
         });
     });
