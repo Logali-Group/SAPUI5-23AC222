@@ -131,7 +131,7 @@ sap.ui.define([
         },
 
         onReadODataIncidence: function (sEmployeeId) {
-            let sUrl = "IncidentsSet";
+            let sUrl = "/IncidentsSet";
             this.getOwnerComponent().getModel("incidenceModel").read(sUrl, {
                 filters:[
                     new sap.ui.model.Filter("SapId","EQ", this.getOwnerComponent().SapId),
