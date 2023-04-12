@@ -1,0 +1,59 @@
+<core:FragmentDefinition
+            xmlns="sap.m"
+            xmlns:core="sap.ui.core">
+
+    <Panel>
+
+        <headerToolbar>
+            <Toolbar>
+                    <core:Icon src="{=  ${incidenceModel>Type} === '0'? 'accept' : 
+                                        ${incidenceModel>Type} === '1'? 'alert' : 
+                                        ${incidenceModel>Type} === '2'? 'decline' : ''}"/>
+                    <Title text="{i18n>incidence} {= ${incidenceModel>IncidenceId} ? parseInt(${incidenceModel>IncidenceId}) : '' }
+                                {
+                                    path:'incidenceModel>CreationDate',
+                                    formatter:'.formatter.dateFormat'
+                                }
+                    "/>
+                    <ToolbarSpacer/>
+                    <Button icon="sap-icon://save"
+                            press="onSaveIncidence"/>
+                    <core:Icon src="delete" press="onDeleteIncidence"/>
+            </Toolbar>
+                    
+        </headerToolbar>
+
+
+        <content>
+            <HBox>
+                    <VBox class="sapUiSmallMaringEnd">
+                        <Label text="{i18n>incidenceDate}"/>
+                        <DatePicker dateValue="{incidenceModel>CreationDate}" 
+                                    change="updateIncidenceCreationDate"/>
+                    </VBox>
+
+                    <VBox visible="{= ${incidenceModel>CreationDate} !== '' &amp;&amp;  ${incidenceModel>CreationDate} !== undefined}" 
+                            class="sapUiSmallMarginEnd">
+                        <Label text="{i18n>incidenceReason}"/>
+                        <Input value="{incidenceModel>Reason}"
+                                change="updateIncidenceReason"/>
+                    </VBox>
+
+                    <VBox visible="{= ${incidenceModel>CreationDate} !== '' &amp;&amp;  ${incidenceModel>CreationDate} !== undefined}" 
+                            class="sapUiSmallMarginEnd">
+                        <Label text="{i18n>incidenceType}"/>
+                        <Select selectedKey="{incidenceModel>Type}" 
+                                forceSelection="false"
+                                change="updateIncidenceType">    
+                            <core:Item key="0" text="{i18n>incidenceCorrect}"/>
+                            <core:Item key="1" text="{i18n>incidencePending}"/>
+                            <core:Item key="2" text="{i18n>incidenceError}"/>
+                        </Select>
+                    </VBox>
+
+            </HBox>
+        </content>
+
+    </Panel>
+
+</core:FragmentDefinition>

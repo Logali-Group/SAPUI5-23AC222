@@ -1,0 +1,100 @@
+<mvc:View
+        controllerName="employees.controller.Details"
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc">
+
+        <Page title="{i18n>employeeDetails}">
+
+            <Panel>
+
+                <FlexBox alignItems="Center"
+                        justifyContent="Center"
+                        height="4rem">
+                    <items>
+                        <Text text="{odataNorthwind>LastName}, {odataNorthwind>FirstName}"
+                            class="boldText"/>
+                    </items>
+                </FlexBox>
+
+                <FlexBox alignItems="Start"
+                        justifyContent="SpaceBetween"
+                        height="4rem">
+                    <items>
+                        <VBox>
+                            <Text text="{i18n>employeeID}"
+                                    class="boldText sapUiTinyMarginEnd"/>
+                            <Text text="{odataNorthwind>EmployeeID}"/>
+                        </VBox>
+
+                        <VBox>
+                            <Text text="{i18n>titleEmployee}"
+                                    class="boldText"/>
+                            <Text text="{odataNorthwind>Title}"/>
+                        </VBox>
+                    </items>
+                </FlexBox>
+
+                <FlexBox alignItems="Start">
+                    <items>
+
+                            <HBox>
+                                <Text text="{i18n>countryCode}:"
+                                    class="boldText sapUiTinyMarginEnd"/>
+                                <Text text="{odataNorthwind>Country}" width="100%"/>
+                                <layoutData>
+                                    <FlexItemData growFactor="3"/>
+                                </layoutData>
+                            </HBox>
+
+                            <HBox>
+                                <Text text="{i18n>city}:"
+                                    class="boldText sapUiTinyMarginEnd"/>
+                                <Text text="{odataNorthwind>City}" width="100%"/>
+                                <layoutData>
+                                    <FlexItemData growFactor="2"/>
+                                </layoutData>
+                            </HBox>
+
+                            <HBox alignItems="Start">
+                                <Text text="{i18n>postalCode}:"
+                                    class="boldText sapUiTinyMarginEnd"/>
+                                <Text text="{odataNorthwind>PostalCode}" width="100%"/>
+                                <layoutData>
+                                    <FlexItemData growFactor="1"/>
+                                </layoutData>
+                            </HBox>
+
+                    </items>
+                </FlexBox>
+
+            </Panel>
+
+            <Panel class="sapUiSizeCompact"
+                    backgroundDesign="Transparent">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="{i18n>incidence} {= ${odataNorthwind>Country} !== 'US'? ${i18n>europe} : ${i18n>us} }"/>
+                        <ToolbarSpacer/>
+                        <Button text="{i18n>createIncidence}"
+                                press="onCreateIncidence"/>
+                    </Toolbar>
+                </headerToolbar>
+            </Panel>
+
+
+            <Panel id="tableIncidence"
+                    class="sapUiNoContentPadding"
+                    backgroundDesign="Transparent">
+
+            </Panel>
+
+            <Panel class="sapUiSizeCompact" 
+                    backgroundDesign="Transparent"
+                    headerText="{i18n>orders}">
+                <core:Fragment fragmentName="employees.fragment.TableOrders" type="XML"/>
+            </Panel>
+
+        </Page>
+
+</mvc:View>

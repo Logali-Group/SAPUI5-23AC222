@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core">
+
+        <Dialog>    
+
+            <content>
+                <core:Fragment fragmentName="employees.fragment.TableOrders" type="XML"/>
+            </content>
+
+            <endButton>
+                <Button 
+                        text="{i18n>close}"
+                        press="onCloseOrders"/>
+            </endButton>
+
+        </Dialog>
+
+</core:FragmentDefinition>

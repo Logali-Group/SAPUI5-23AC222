@@ -1,0 +1,45 @@
+<mvc:View controllerName="employees.controller.Master" 
+            xmlns="sap.m"
+            xmlns:core="sap.ui.core"
+            xmlns:mvc="sap.ui.core.mvc" 
+            displayBlock="true" >
+
+            <Page id="page" title="{i18n>title}">
+                <content>
+                    <HBox wrap="Wrap">
+                        <Label id="labelEmployee" 
+                                class="sapUiSmallMargin" 
+                                text="{i18n>labelEmployee}" />
+                        <Input id="inputEmployee" 
+                                class="sapUiSmallMarginEnd" 
+                                maxLength="6" 
+                                value="{jsonCountries>/EmployeeId}"
+                                width="200px"/>
+                        <Label id="labelCountry"
+                                class="sapUiSmallMargin" 
+                                text="{i18n>labelCountry}"/>
+                        <Select id="selectCountry"
+                                items="{jsonCountries>/ListCountry}"
+                                selectedKey="{jsonCountries>/CountryKey}"
+                                forceSelection="false">
+                            <items>
+                                <core:Item key="{jsonCountries>Key}" 
+                                            text="{jsonCountries>Text}"/>
+                            </items>
+                        </Select>
+                        <Button id="btnFilter"
+                                class="sapUiSmallMarginEnd"
+                                icon="sap-icon://search"
+                                press="onFilter"/>
+                        <Button id="btnClearFilter"
+                                class="sapUiSmallMarginEnd"
+                                icon="sap-icon://clear-filter"
+                                press="onClearFilter"/>
+                    </HBox>
+                    <HBox>
+                        <core:Fragment fragmentName="employees.fragment.TableEmployee" type="XML"/>
+                    </HBox>
+                </content>
+            </Page>
+
+</mvc:View>
