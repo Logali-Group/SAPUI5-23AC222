@@ -32,13 +32,13 @@ sap.ui.define([
             this._oEventBus.subscribe("Incidence","onSaveIncidence", this.onSaveODataIncidence, this);
             this._oEventBus.subscribe("Incidence", "onDeleteIncidence", function (sChannel, sNameEvent, oData) {
 
-                let oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+                let oResourceBundle = oController.getView().getModel("i18n").getResourceBundle();
 
-                let sUrl = "IncidentsSet(IncidenceId='"+oData.IncidenceId+"',SapId='"+oData.SapId+"',EmployeeId='"+oData.EmployeeID+"')";
+                let sUrl = "/IncidentsSet(IncidenceId='"+oData.IncidenceId+"',SapId='"+oData.SapId+"',EmployeeId='"+oData.EmployeeID+"')";
 
-                this.getOwnerComponent().getModel("incidenceModel").remove(sUrl, oData, {
+                oController.getOwnerComponent().getModel("incidenceModel").remove(sUrl, {
                     success: function () {
-                        this.onReadODataIncidence.bind(this)(sEmployeeId);
+                        oController.onReadODataIncidence(oData.EmployeeID);
                         sap.m.MessageToast.show(oResourceBundle.getText("odataDeleteOK"));
                     },
                     error: function (e) {
@@ -108,7 +108,7 @@ sap.ui.define([
                 this.getOwnerComponent().getModel("incidenceModel").update(sUrl, oData, {
                     success: function () {
                         oController.onReadODataIncidence.bind(oController)(sEmployeeId);
-                        sap.m.MessageToast.show(oResourceBundle.getText("odataUpdayeOK"));
+                        sap.m.MessageToast.show(oResourceBundle.getText("odataUpdateOK"));
                     },
                     error: function (e) {
                         sap.m.MessageToast.show(oResourceBundle.getText("odataUpdateKO"));
@@ -120,11 +120,15 @@ sap.ui.define([
         onReadODataIncidence: function (sEmployeeId) {
 
             let sUrl = "/IncidentsSet",
+                sSapId = this.getOwnerComponent().SapId,
                 oController = this;
+
+            console.log(sEmployeeId);
+            console.log(sSapId);
 
             this.getOwnerComponent().getModel("incidenceModel").read(sUrl, {
                 filters:[
-                    new sap.ui.model.Filter("SapId","EQ", oController.getOwnerComponent().SapId),
+                    new sap.ui.model.Filter("SapId","EQ", sSapId),
                     new sap.ui.model.Filter("EmployeeId","EQ", sEmployeeId)
                 ],
                 success: function (data) {

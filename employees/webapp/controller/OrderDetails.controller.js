@@ -1,11 +1,15 @@
 sap.ui.define([
 	"employees/controller/BaseController",
 	"sap/ui/core/routing/History",
-	"sap/m/MessageBox"
+	"sap/m/MessageBox",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
 ], function (
 	BaseController,
 	History,
-	MessageBox
+	MessageBox,
+	Filter,
+	FilterOperator
 ) {
 	"use strict";
 
@@ -31,7 +35,7 @@ sap.ui.define([
 				model: "odataNorthwind",
 				events:{
 					dataReceived: function (oData) {
-						$this._readSignature.bind(oController)(oData.getParameter("data").OrderID, oData.getParameter("data").EmployeeID)
+						$this._readSignature.bind(oController)(oData.getParameter("data").OrderID, oData.getParameter("data").EmployeeID);
 					}
 				}
 			});
@@ -43,9 +47,11 @@ sap.ui.define([
 			}
 
 		},
+		
 
 		_readSignature: function (sOrderId, sEmployeeId) {
-			let sUrl = "/SignatureSet(OrderId='"+sOrderId+"',SapId='"+this.getOwnerComponent().SapId+"',EmployeeId='"+sEmployeeId+"')";
+			let sSapId = this.getOwnerComponent().SapId,
+				sUrl = "/SignatureSet(OrderId='"+sOrderId+"',SapId='"+sSapId+"',EmployeeId='"+sEmployeeId+"')";
 
 			this.getView().getModel("incidenceModel").read(sUrl, {
 				success: function (data) {
@@ -58,6 +64,22 @@ sap.ui.define([
 
 				}
 			});
+
+				let oUploadSet = this.byId("uploadSet");
+
+				oUploadSet.bindAggregation("items",{
+					path:'incidenceModel>/FilesSet',
+					filters:[
+						new Filter("OrderId", FilterOperator.EQ, sOrderId),
+						new Filter("SapId",FilterOperator.EQ, sSapId),
+						new Filter("EmployeeId", FilterOperator.EQ, sEmployeeId) 	
+					],
+					template: new sap.m.upload.UploadSetItem({
+						fileName: "{incidenceModel>FileName}",
+						mediaType:"{incidenceModel>MimeType}",
+						visibleEdit: false
+					})
+				});
 		},
 
 		onBack: function (oEvent) {
@@ -134,6 +156,69 @@ sap.ui.define([
 					}
 				});
 			}
+		},
+
+		onFileBeforeUpload: function (oEvent) {
+
+			let oItem = oEvent.getParameter("item"),
+				oModel = this.getView().getModel("incidenceModel"),
+				oBindingContext = oItem.getBindingContext("odataNorthwind"),
+				sOrderId = oBindingContext.getProperty("OrderID").toString(),
+				sSapId = this.getOwnerComponent().SapId,
+				sEmployeId = oBindingContext.getProperty("EmployeeID").toString(),
+				sFileName = oItem.getFileName(),
+				sSecurityToken = oModel.getSecurityToken();
+
+			let sSlug = sOrderId+";"+sSapId+";"+sEmployeId+";"+sFileName;
+
+				//add token
+				let oCustomerHeaderToken = new sap.ui.core.Item({
+					key: "X-CSRF-Token",
+					text: sSecurityToken
+				});
+
+				//add slug
+				let oCustomerHeaderSlug = new sap.ui.core.Item({
+					key: "Slug",
+					text: sSlug
+				});
+
+				oItem.addHeaderField(oCustomerHeaderToken);
+				oItem.addHeaderField(oCustomerHeaderSlug);
+		},
+		onFileUploadComplete: function (oEvent) {
+			let oUploadSet = oEvent.getSource();
+				oUploadSet.getBinding("items").refresh();
+		},
+
+		onFileDeleted: function (oEvent) {
+			let oUploadSet = oEvent.getSource();
+			var sPath = oEvent.getParameter("item").getBindingContext("incidenceModel").getPath();
+
+			this.getView().getModel("incidenceModel").remove(sPath, {
+				success: function () {
+					oUploadSet.getBinding("items").refresh();
+				},
+				error: function () {
+				}
+			});
+		},
+
+		onDowloadFile: function () {
+
+			let oUploadSet = this.byId("uploadSet"),
+				oResourceBundle = this.getView().getModel("i18n").getResourceBundle(),
+				aItems = oUploadSet.getSelectedItems();
+
+				if (aItems.length === 0) {
+					MessageBox.error(oResourceBundle.getText("selectFile"));
+				} else {
+					aItems.forEach((oItem)=>{
+						let oBindingContext = oItem.getBindingContext("incidenceModel"),
+							sPath = oBindingContext.getPath();
+						window.open("/sap/opu/odata/sap/YSAPUI5_SRV_01" + sPath + "/$value");
+					});
+				}
 		}
 	});
 });

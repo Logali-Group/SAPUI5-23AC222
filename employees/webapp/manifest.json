@@ -96,7 +96,7 @@
           "defaultOperationMode": "Server",
           "defaultBindingMode": "TwoWay",
           "defaultCountMode": "Request",
-          "refreshAfterChange": false,
+          "refreshAfterChange": true,
           "useBatch": false,
           "defaultUpdateMethod": "Put"
         }
