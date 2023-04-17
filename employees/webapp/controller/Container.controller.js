@@ -108,7 +108,7 @@ sap.ui.define([
                 this.getOwnerComponent().getModel("incidenceModel").update(sUrl, oData, {
                     success: function () {
                         oController.onReadODataIncidence.bind(oController)(sEmployeeId);
-                        sap.m.MessageToast.show(oResourceBundle.getText("odataUpdayeOK"));
+                        sap.m.MessageToast.show(oResourceBundle.getText("odataUpdateOK"));
                     },
                     error: function (e) {
                         sap.m.MessageToast.show(oResourceBundle.getText("odataUpdateKO"));
