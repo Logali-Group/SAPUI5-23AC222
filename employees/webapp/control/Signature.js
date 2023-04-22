@@ -55,7 +55,7 @@ sap.ui.define([
             try {
                 this.signaturePad.clear();
                 this.signaturePad.fill = false;
-            } catch () {
+            } catch (err) {
             
             }
         },
