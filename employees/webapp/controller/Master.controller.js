@@ -64,7 +64,7 @@ sap.ui.define([
                     oBinding = oTable.getBinding("items");
                 oBinding.filter([]);
 
-                this.getView().byId("tableEmployee").setHeaderText("Employees: (" + oEmployeeModel.getProperty("/Amount") + ")");
+                //this.getView().byId("tableEmployee").setHeaderText("Employees: (" + oEmployeeModel.getProperty("/Amount") + ")");
 
             },
 
